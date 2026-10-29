@@ -7,10 +7,11 @@ const JWT_SECRET = process.env.JWT_SECRET || 'islandbox_super_secret_jwt_key_sia
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 
 function setAuthCookie(res, token) {
+  const isProd = process.env.NODE_ENV === 'production';
   res.cookie('token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 }
@@ -146,7 +147,12 @@ async function login(req, res) {
 }
 
 function logout(req, res) {
-  res.clearCookie('token');
+  const isProd = process.env.NODE_ENV === 'production';
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax',
+  });
   return res.json({ message: 'Logged out successfully.' });
 }
 
