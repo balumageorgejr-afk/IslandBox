@@ -96,6 +96,8 @@ export default function Footer() {
         <div className="pt-8 border-t border-slate-800 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>&copy; 2026 IslandBox &bull; Systems Integration and Architecture (SIA) Capstone Group 1. All rights reserved.</p>
           <p>Map tiles &copy; OpenStreetMap contributors &bull; Geocoding by Geoapify</p>
+          <p>Founded by:George Baluma</p>
+          <p>Co Founded by:Allen Postanes Aguiman</p>
         </div>
       </div>
     </footer>
