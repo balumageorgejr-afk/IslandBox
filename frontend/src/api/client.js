@@ -1,10 +1,13 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_API_URL
-  ? import.meta.env.VITE_API_URL.endsWith('/api')
-    ? import.meta.env.VITE_API_URL
-    : `${import.meta.env.VITE_API_URL}/api`
-  : '/api';
+const defaultApiUrl =
+  typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? '/api'
+    : 'https://islandbox.onrender.com/';
+
+const rawUrl = import.meta.env.VITE_API_URL || defaultApiUrl;
+const baseUrl = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;
 
 const api = axios.create({
   baseURL,
