@@ -12,6 +12,21 @@ async function startServer() {
     const dbTest = await pool.query('SELECT NOW() as current_time, current_database() as db_name;');
     console.log(`[Database Connected] Host: localhost:5432 | DB: ${dbTest.rows[0].db_name} | Server Time: ${dbTest.rows[0].current_time}`);
 
+    // Auto-seed database if products count is below 100 (ensures Render cloud DB gets all 130 products)
+    try {
+      const pCount = await pool.query('SELECT COUNT(*) FROM products;');
+      const currentProducts = parseInt(pCount.rows[0].count, 10);
+      console.log(`[Product Catalog Check] Current products in database: ${currentProducts}`);
+      if (currentProducts < 100) {
+        console.log(`[Auto-Seed] Products count is ${currentProducts} (< 100). Auto-populating all 130 local items...`);
+        const { seedDatabase } = require('./database/seed');
+        await seedDatabase(false);
+        console.log(`[Auto-Seed] Product catalog populated successfully!`);
+      }
+    } catch (seedErr) {
+      console.error('[Auto-Seed Warning] Could not auto-seed database:', seedErr.message);
+    }
+
     app.listen(PORT, () => {
       console.log(`=======================================================`);
       console.log(` IslandBox Marketplace API Server is RUNNING`);

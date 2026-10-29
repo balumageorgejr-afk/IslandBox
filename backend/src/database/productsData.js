@@ -1324,3 +1324,4 @@ module.exports = [
     image_url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80'
   }
 ];
+

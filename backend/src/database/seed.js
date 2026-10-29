@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { pool } = require('../config/db');
 
-async function seedDatabase() {
+async function seedDatabase(closePool = false) {
   console.log('Seeding IslandBox database with authentic Philippine artisan data...');
   const client = await pool.connect();
 
@@ -334,15 +334,23 @@ async function seedDatabase() {
 
     await client.query('COMMIT');
     console.log('Seeding completed successfully!');
+    return { success: true, count: Object.keys(productMap).length };
   } catch (error) {
     await client.query('ROLLBACK');
     console.error('Seeding failed:', error);
-    process.exit(1);
+    if (closePool) process.exit(1);
+    throw error;
   } finally {
     client.release();
-    await pool.end();
+    if (closePool) {
+      await pool.end();
+    }
   }
 }
 
-seedDatabase();
+if (require.main === module) {
+  seedDatabase(true);
+}
+
+module.exports = { seedDatabase };
 

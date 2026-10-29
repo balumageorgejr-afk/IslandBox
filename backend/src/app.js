@@ -64,6 +64,21 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Database Seed Endpoint (Allows one-click cloud database seeding)
+const { seedDatabase } = require('./database/seed');
+app.get('/api/seed', async (req, res) => {
+  try {
+    const result = await seedDatabase(false);
+    res.json({
+      success: true,
+      message: 'IslandBox database successfully populated with all 130 local products!',
+      products_count: result.count,
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to seed database', details: err.message });
+  }
+});
+
 // Mount Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
