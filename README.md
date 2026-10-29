@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # IslandBox: Local Products and Souvenir Marketplace
 ### Systems Integration & Architecture (SIA) Capstone Project &bull; Group 1
 
@@ -236,3 +237,6 @@ george SIA/
 
 *Academic Project developed for Systems Integration and Architecture (SIA Group 1).*
 
+=======
+# IslandBox
+>>>>>>> 1a99eb2058edf1f0ca98c9be20dbe6255ae555c8
