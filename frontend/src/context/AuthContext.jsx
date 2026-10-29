@@ -24,12 +24,20 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const res = await api.post('/auth/login', { email, password });
+    if (res.data.token) {
+      localStorage.setItem('islandbox_token', res.data.token);
+    }
     setUser(res.data.user);
     return res.data;
   };
 
   const register = async (userData) => {
     const res = await api.post('/auth/register', userData);
+   
+    if (res.data.token) {
+      localStorage.setItem('islandbox_token', res.data.token);
+    }
+
     setUser(res.data.user);
     return res.data;
   };
@@ -38,6 +46,7 @@ export function AuthProvider({ children }) {
     try {
       await api.post('/auth/logout');
     } finally {
+      localStorage.removeItem('islandbox_token');
       setUser(null);
     }
   };

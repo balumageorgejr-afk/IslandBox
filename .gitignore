@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dependency directories
 node_modules/
 backend/node_modules/
@@ -27,3 +28,8 @@ Thumbs.db
 .vscode/
 .idea/
 
+=======
+node_modules/
+.env
+data/db.json
+>>>>>>> 1a99eb2058edf1f0ca98c9be20dbe6255ae555c8

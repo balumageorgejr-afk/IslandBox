@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --cream: #FFFDF7;
+  --teal: #1B998B;
+  --teal-dark: #14766B;
+  --orange: #FF9F1C;
+  --coral: #FF6B6B;
+  --indigo: #2E1F47;
+  --sky: #5BC0BE;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--indigo);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: 'Fredoka', sans-serif;
+}
+
+/* Storefront Awning Striped Top Bar */
+.awning-stripes {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--coral) 0px,
+    var(--coral) 40px,
+    var(--orange) 40px,
+    var(--orange) 80px
+  );
+  height: 14px;
+  border-bottom: 3px solid var(--indigo);
+}
+
+/* Neo-Brutalist Playful Borders & Offset Shadows */
+.island-card {
+  background: #FFFFFF;
+  border: 3px solid var(--indigo);
+  box-shadow: 5px 5px 0px var(--indigo);
+  border-radius: 16px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.island-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0px var(--indigo);
+}
+
+.island-btn {
+  border: 2.5px solid var(--indigo);
+  box-shadow: 3px 3px 0px var(--indigo);
+  font-weight: 700;
+  transition: all 0.12s ease;
+}
+
+.island-btn:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px var(--indigo);
+}
+
+.island-btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--indigo);
+}
+
+.island-input {
+  border: 2.5px solid var(--indigo);
+  border-radius: 10px;
+  padding: 0.6rem 0.85rem;
+  background-color: #FFFFFF;
+  outline: none;
+}
+
+.island-input:focus {
+  box-shadow: 3px 3px 0px var(--teal);
+}
+
+.category-pill.active {
+  background-color: var(--orange);
+  color: var(--indigo);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--indigo);
+}
+
+#islandMap {
+  height: 360px;
+  width: 100%;
+  border-radius: 12px;
+  border: 3px solid var(--indigo);
+  z-index: 10;
+}

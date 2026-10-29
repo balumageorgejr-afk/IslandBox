@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IslandBox | Local Products & Souvenir Marketplace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Leaflet CSS & JS for Maps/Geocoding API -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Storefront Awning Header -->
+  <div class="awning-stripes"></div>
+
+  <!-- Top Utility Bar -->
+  <div class="bg-[#1B998B] text-white border-b-2 border-[#2E1F47] text-xs py-2 px-4">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-3 font-medium">
+        <span class="bg-[#FF9F1C] text-[#2E1F47] font-bold px-2 py-0.5 rounded border border-[#2E1F47]">SIA 101 - C</span>
+        <span>Supporting Island Communities, Local Artisans & Small Businesses</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button onclick="openSellerModal()" class="hover:underline font-semibold flex items-center gap-1">
+          <span>+ Sell on IslandBox</span>
+        </button>
+        <span>|</span>
+        <button onclick="switchTab('orders')" class="hover:underline font-semibold">My Orders & Tracking</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sticky Navigation (Shopee-Style Header) -->
+  <header class="sticky top-0 z-30 bg-[#FFFDF7]/95 backdrop-blur border-b-4 border-[#2E1F47] py-4 px-4">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <!-- Brand Logo -->
+      <a href="#" onclick="switchTab('shop'); return false;" class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-[#FF9F1C] border-2 border-[#2E1F47] flex items-center justify-center text-2xl shadow-[3px_3px_0px_#2E1F47]">
+          🏝️
+        </div>
+        <div>
+          <span class="font-display text-2xl md:text-3xl font-bold tracking-tight text-[#2E1F47] block leading-none">
+            ISLAND<span class="text-[#1B998B]">BOX</span>
+          </span>
+          <span class="text-xs font-semibold text-[#FF6B6B]">Local Products & Souvenir Shop</span>
+        </div>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="flex-1 max-w-xl mx-auto w-full order-3 md:order-2">
+        <div class="relative flex">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search local snacks, handicrafts, souvenirs, sellers..."
+            class="w-full island-input pr-24 text-sm"
+            oninput="handleSearch()"
+          />
+          <button
+            onclick="handleSearch()"
+            class="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-[#FF6B6B] text-white font-bold rounded-lg border-2 border-[#2E1F47] text-xs hover:bg-[#ff5252]"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+
+      <!-- User Account & Cart Controls -->
+      <div class="flex items-center gap-3 order-2 md:order-3">
+        <button
+          onclick="switchTab('map')"
+          class="island-btn bg-[#5BC0BE] text-[#2E1F47] px-3 py-2 rounded-xl text-sm flex items-center gap-1.5"
+        >
+          <span>📍</span>
+          <span class="hidden sm:inline">Seller Map</span>
+        </button>
+
+        <button
+          onclick="toggleCartDrawer(true)"
+          class="island-btn bg-[#FF9F1C] text-[#2E1F47] px-3.5 py-2 rounded-xl text-sm flex items-center gap-2 relative"
+        >
+          <span>🛒</span>
+          <span class="hidden sm:inline">Cart</span>
+          <span id="cartBadge" class="bg-[#FF6B6B] text-white text-xs px-2 py-0.5 rounded-full border border-[#2E1F47]">0</span>
+        </button>
+
+        <button
+          id="authBtn"
+          onclick="openAuthModal()"
+          class="island-btn bg-[#1B998B] text-white px-4 py-2 rounded-xl text-sm"
+        >
+          Login / Register
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-8">
+
+    <!-- Payment Outcome Alert Banner -->
+    <div id="paymentAlert" class="hidden island-card p-4 border-l-8"></div>
+
+    <!-- TAB 1: MARKETPLACE SHOP VIEW -->
+    <section id="tab-shop" class="space-y-8">
+      <!-- Playful Hero Banner -->
+      <div class="island-card bg-gradient-to-r from-[#1B998B] via-[#1B998B] to-[#5BC0BE] p-6 md:p-8 text-white relative overflow-hidden">
+        <div class="max-w-2xl space-y-3 relative z-10">
+          <span class="inline-block bg-[#FF9F1C] text-[#2E1F47] font-bold text-xs px-3 py-1 rounded-full border-2 border-[#2E1F47]">
+            ✨ DISCOVER ISLAND TREASURES
+          </span>
+          <h1 class="text-3xl md:text-4xl font-bold leading-tight">
+            Authentic Island Snacks, Souvenirs & Handcrafted Goods in One Box!
+          </h1>
+          <p class="text-white/90 text-sm md:text-base">
+            Directly support local island makers, souvenir stalls, and small businesses. Browse verified sellers on the map and checkout securely with PayMongo.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-3">
+            <button onclick="filterCategory('Local snacks')" class="island-btn bg-[#FF9F1C] text-[#2E1F47] px-4 py-2 rounded-xl text-sm">
+              🍩 Explore Local Snacks
+            </button>
+            <button onclick="switchTab('map')" class="island-btn bg-white text-[#2E1F47] px-4 py-2 rounded-xl text-sm">
+              🗺️ View Seller & Delivery Map
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Bar -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-bold flex items-center gap-2">
+            <span>🏪</span> Local Marketplace Categories
+          </h2>
+          <span id="productCountLabel" class="text-xs font-bold bg-white px-3 py-1 rounded-full border-2 border-[#2E1F47]">
+            Showing all products
+          </span>
+        </div>
+
+        <div id="categoryBar" class="flex flex-wrap gap-2.5">
+          <button onclick="filterCategory('All')" data-cat="All" class="category-pill active island-btn bg-white px-4 py-2 rounded-xl text-sm">
+            🌟 All Products
+          </button>
+          <button onclick="filterCategory('Local snacks')" data-cat="Local snacks" class="category-pill island-btn bg-white px-4 py-2 rounded-xl text-sm">
+            🍪 Local Snacks
+          </button>
+          <button onclick="filterCategory('Handicrafts')" data-cat="Handicrafts" class="category-pill island-btn bg-white px-4 py-2 rounded-xl text-sm">
+            🧺 Handicrafts
+          </button>
+          <button onclick="filterCategory('Souvenirs')" data-cat="Souvenirs" class="category-pill island-btn bg-white px-4 py-2 rounded-xl text-sm">
+            👕 Souvenirs
+          </button>
+          <button onclick="filterCategory('Accessories')" data-cat="Accessories" class="category-pill island-btn bg-white px-4 py-2 rounded-xl text-sm">
+            📿 Accessories
+          </button>
+          <button onclick="filterCategory('Handmade products')" data-cat="Handmade products" class="category-pill island-btn bg-white px-4 py-2 rounded-xl text-sm">
+            🎨 Handmade Products
+          </button>
+        </div>
+      </div>
+
+      <!-- Shopee-Style Product Grid -->
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- TAB 2: MAPS & GEOCODING API VIEW -->
+    <section id="tab-map" class="hidden space-y-6">
+      <div class="island-card p-6 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold bg-[#5BC0BE] px-2.5 py-1 rounded border border-[#2E1F47]">EXTERNAL GEOCODING & MAPS API</span>
+            <h2 class="text-2xl font-bold mt-1">Seller Storefronts & Delivery Location Locator</h2>
+            <p class="text-sm text-gray-600">
+              Convert any island address into geographic coordinates to view seller locations and calculate delivery distance.
+            </p>
+          </div>
+          <button onclick="switchTab('shop')" class="island-btn bg-white px-4 py-2 rounded-xl text-sm">
+            ← Back to Shop
+          </button>
+        </div>
+
+        <!-- Address Geocoding Search Bar -->
+        <div class="flex flex-wrap gap-2">
+          <input
+            id="geocodeInput"
+            type="text"
+            placeholder="Enter delivery address or town (e.g., Panglao, Bohol or Tagbilaran City)..."
+            class="flex-1 island-input text-sm"
+          />
+          <button
+            onclick="geocodeCustomerAddress()"
+            class="island-btn bg-[#1B998B] text-white px-5 py-2 rounded-xl text-sm"
+          >
+            📍 Pin Delivery Address via Geocoding API
+          </button>
+        </div>
+        <div id="geocodeStatus" class="text-xs font-semibold text-[#1B998B]"></div>
+
+        <!-- Interactive Map Container -->
+        <div id="islandMap"></div>
+      </div>
+    </section>
+
+    <!-- TAB 3: ORDER TRACKING & STATUS VIEW -->
+    <section id="tab-orders" class="hidden space-y-6">
+      <div class="island-card p-6 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold bg-[#FF9F1C] px-2.5 py-1 rounded border border-[#2E1F47]">ORDER TRACKING SYSTEM</span>
+            <h2 class="text-2xl font-bold mt-1">My Purchases & Live Order Status</h2>
+            <p class="text-sm text-gray-600">
+              Track your orders across every stage: Pending, Paid, Preparing, Shipped, and Completed.
+            </p>
+          </div>
+          <button onclick="switchTab('shop')" class="island-btn bg-white px-4 py-2 rounded-xl text-sm">
+            ← Continue Shopping
+          </button>
+        </div>
+
+        <!-- Shopee-Style Order Status Filter Tabs -->
+        <div class="flex flex-wrap gap-2 border-b-2 border-[#2E1F47] pb-4" id="orderStatusTabs">
+          <button onclick="filterOrders('All')" data-status="All" class="order-tab island-btn bg-[#FF9F1C] px-3.5 py-1.5 rounded-lg text-xs">All Orders</button>
+          <button onclick="filterOrders('Pending')" data-status="Pending" class="order-tab island-btn bg-white px-3.5 py-1.5 rounded-lg text-xs">⏳ Pending</button>
+          <button onclick="filterOrders('Paid')" data-status="Paid" class="order-tab island-btn bg-white px-3.5 py-1.5 rounded-lg text-xs">💳 Paid</button>
+          <button onclick="filterOrders('Preparing')" data-status="Preparing" class="order-tab island-btn bg-white px-3.5 py-1.5 rounded-lg text-xs">📦 Preparing</button>
+          <button onclick="filterOrders('Shipped')" data-status="Shipped" class="order-tab island-btn bg-white px-3.5 py-1.5 rounded-lg text-xs">🚚 Shipped</button>
+          <button onclick="filterOrders('Completed')" data-status="Completed" class="order-tab island-btn bg-white px-3.5 py-1.5 rounded-lg text-xs">✅ Completed</button>
+        </div>
+
+        <div id="ordersList" class="space-y-4"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SLIDE-OVER SHOPPING CART DRAWER -->
+  <div id="cartDrawer" class="fixed inset-0 bg-black/50 z-40 hidden flex justify-end">
+    <div class="bg-[#FFFDF7] w-full max-w-md h-full border-l-4 border-[#2E1F47] flex flex-col justify-between p-6">
+      <div class="space-y-4 overflow-y-auto flex-1 pr-1">
+        <div class="flex items-center justify-between border-b-2 border-[#2E1F47] pb-3">
+          <h3 class="text-xl font-bold flex items-center gap-2">🛒 Your IslandBox Cart</h3>
+          <button onclick="toggleCartDrawer(false)" class="island-btn bg-[#FF6B6B] text-white px-2.5 py-1 rounded-lg text-xs">✕</button>
+        </div>
+
+        <div id="cartItemsContainer" class="space-y-3"></div>
+      </div>
+
+      <!-- Checkout Summary Footer -->
+      <div class="border-t-2 border-[#2E1F47] pt-4 space-y-3 bg-[#FFFDF7]">
+        <div class="space-y-1 text-sm">
+          <div class="flex justify-between">
+            <span>Subtotal:</span>
+            <span id="cartSubtotal" class="font-bold">₱0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Local Island Delivery Fee:</span>
+            <span class="font-bold">₱45.00</span>
+          </div>
+          <div class="flex justify-between text-base font-bold text-[#1B998B] pt-1 border-t border-dashed border-[#2E1F47]">
+            <span>Total Payment:</span>
+            <span id="cartTotal">₱0.00</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold block mb-1">Select PayMongo Payment Method:</label>
+          <select id="paymentMethodSelect" class="w-full island-input text-sm">
+            <option value="GCash (PayMongo Test)">GCash (PayMongo Test)</option>
+            <option value="Maya (PayMongo Test)">Maya (PayMongo Test)</option>
+            <option value="Credit/Debit Card (PayMongo Test)">Credit/Debit Card (PayMongo Test)</option>
+            <option value="GrabPay (PayMongo Test)">GrabPay (PayMongo Test)</option>
+          </select>
+        </div>
+
+        <button
+          onclick="proceedToCheckout()"
+          class="w-full island-btn bg-[#1B998B] text-white py-3 rounded-xl text-sm flex items-center justify-center gap-2"
+        >
+          <span>🔒 Checkout with PayMongo</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER REGISTRATION & LOGIN MODAL -->
+  <div id="authModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+    <div class="island-card max-w-md w-full p-6 space-y-4 bg-[#FFFDF7]">
+      <div class="flex justify-between items-center border-b-2 border-[#2E1F47] pb-2">
+        <h3 id="authModalTitle" class="text-xl font-bold">Customer Login</h3>
+        <button onclick="closeAuthModal()" class="island-btn bg-[#FF6B6B] text-white px-2.5 py-1 rounded text-xs">✕</button>
+      </div>
+
+      <div id="authError" class="hidden bg-[#FF6B6B]/20 border-2 border-[#FF6B6B] text-xs font-bold p-2.5 rounded-lg"></div>
+
+      <!-- Login Form -->
+      <form id="loginForm" onsubmit="submitLogin(event)" class="space-y-3">
+        <div>
+          <label class="text-xs font-bold">Email Address</label>
+          <input id="loginEmail" type="email" value="demo@islandbox.ph" required class="w-full island-input text-sm mt-1" />
+        </div>
+        <div>
+          <label class="text-xs font-bold">Password</label>
+          <input id="loginPassword" type="password" value="password123" required class="w-full island-input text-sm mt-1" />
+        </div>
+        <button type="submit" class="w-full island-btn bg-[#1B998B] text-white py-2.5 rounded-xl text-sm">
+          Log In to IslandBox
+        </button>
+        <p class="text-xs text-center pt-1">
+          New customer? <button type="button" onclick="toggleAuthMode('register')" class="text-[#1B998B] font-bold underline">Create an account</button>
+        </p>
+      </form>
+
+      <!-- Register Form (Includes all 5 required PDF fields + Geocoding) -->
+      <form id="registerForm" onsubmit="submitRegister(event)" class="hidden space-y-2.5">
+        <div>
+          <label class="text-xs font-bold">Account Type</label>
+          <select id="regRole" class="w-full island-input text-sm mt-0.5">
+            <option value="customer">🛍️ Customer / Souvenir Buyer</option>
+            <option value="seller">🏪 Local Product Seller / Small Business</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs font-bold">Full Name</label>
+          <input id="regName" type="text" placeholder="Juan Dela Cruz" required class="w-full island-input text-sm mt-0.5" />
+        </div>
+        <div>
+          <label class="text-xs font-bold">Email Address</label>
+          <input id="regEmail" type="email" placeholder="juan@example.com" required class="w-full island-input text-sm mt-0.5" />
+        </div>
+        <div>
+          <label class="text-xs font-bold">Password</label>
+          <input id="regPassword" type="password" placeholder="••••••••" required class="w-full island-input text-sm mt-0.5" />
+        </div>
+        <div>
+          <label class="text-xs font-bold">Contact Number</label>
+          <input id="regContact" type="text" placeholder="0917-XXX-XXXX" required class="w-full island-input text-sm mt-0.5" />
+        </div>
+        <div>
+          <label class="text-xs font-bold">Delivery Address (Auto-Geocoded on Map)</label>
+          <input id="regAddress" type="text" placeholder="Tagbilaran City, Bohol" required class="w-full island-input text-sm mt-0.5" />
+        </div>
+        <button type="submit" class="w-full island-btn bg-[#FF9F1C] text-[#2E1F47] py-2.5 rounded-xl text-sm">
+          Register Account
+        </button>
+        <p class="text-xs text-center pt-1">
+          Already have an account? <button type="button" onclick="toggleAuthMode('login')" class="text-[#1B998B] font-bold underline">Log In</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- PAYMONGO TEST CHECKOUT SIMULATOR MODAL (Handles Successful & Failed Scenarios) -->
+  <div id="paymongoModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+    <div class="island-card max-w-md w-full p-6 space-y-4 bg-white">
+      <div class="flex items-center justify-between border-b-2 border-[#2E1F47] pb-3">
+        <div class="flex items-center gap-2">
+          <span class="bg-[#1B998B] text-white font-bold px-2.5 py-1 rounded text-xs">PAYMONGO TEST API</span>
+          <h3 class="font-bold text-lg">Test Checkout Gateway</h3>
+        </div>
+      </div>
+
+      <div id="paymongoOrderDetails" class="bg-[#FFFDF7] p-3.5 rounded-xl border-2 border-[#2E1F47] text-xs space-y-1"></div>
+
+      <p class="text-xs text-gray-600">
+        Test both payment outcomes required by the specification: choose whether to simulate a <strong>Successful Payment</strong> or a <strong>Failed Payment</strong> scenario.
+      </p>
+
+      <div class="grid grid-cols-1 gap-2.5 pt-1">
+        <button
+          onclick="resolveTestPayment('success')"
+          class="island-btn bg-[#1B998B] text-white py-2.5 rounded-xl text-sm flex items-center justify-center gap-2"
+        >
+          <span>✅ Authorize Test Payment (Success)</span>
+        </button>
+        <button
+          onclick="resolveTestPayment('failed')"
+          class="island-btn bg-[#FF6B6B] text-white py-2.5 rounded-xl text-sm flex items-center justify-center gap-2"
+        >
+          <span>❌ Simulate Declined/Failed Payment</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD LOCAL SELLER PRODUCT MODAL -->
+  <div id="sellerModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+    <div class="island-card max-w-lg w-full p-6 space-y-3 bg-[#FFFDF7] max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b-2 border-[#2E1F47] pb-2">
+        <h3 class="text-xl font-bold">🏪 List a Local Island Product</h3>
+        <button onclick="closeSellerModal()" class="island-btn bg-[#FF6B6B] text-white px-2.5 py-1 rounded text-xs">✕</button>
+      </div>
+
+      <form onsubmit="submitNewProduct(event)" class="space-y-2.5 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label class="font-bold">Product Name</label>
+            <input id="prodName" required placeholder="e.g., Ube Polvoron Box" class="w-full island-input mt-0.5" />
+          </div>
+          <div>
+            <label class="font-bold">Category</label>
+            <select id="prodCategory" class="w-full island-input mt-0.5">
+              <option value="Local snacks">Local snacks</option>
+              <option value="Handicrafts">Handicrafts</option>
+              <option value="Souvenirs">Souvenirs</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Handmade products">Handmade products</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="font-bold">Price (PHP)</label>
+            <input id="prodPrice" type="number" required placeholder="150" class="w-full island-input mt-0.5" />
+          </div>
+          <div>
+            <label class="font-bold">Available Quantity</label>
+            <input id="prodQty" type="number" required placeholder="25" class="w-full island-input mt-0.5" />
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label class="font-bold">Seller / Stall Name</label>
+            <input id="prodSeller" required placeholder="Alona Beach Crafts" class="w-full island-input mt-0.5" />
+          </div>
+          <div>
+            <label class="font-bold">Seller Location (Auto-Geocoded)</label>
+            <input id="prodLocation" required placeholder="Panglao, Bohol" class="w-full island-input mt-0.5" />
+          </div>
+        </div>
+        <div>
+          <label class="font-bold">Product Image URL</label>
+          <input id="prodImage" placeholder="https://images.unsplash.com/..." class="w-full island-input mt-0.5" />
+        </div>
+        <div>
+          <label class="font-bold">Description</label>
+          <textarea id="prodDesc" rows="2" required placeholder="Describe how this local product is made..." class="w-full island-input mt-0.5"></textarea>
+        </div>
+        <button type="submit" class="w-full island-btn bg-[#FF9F1C] text-[#2E1F47] py-2.5 rounded-xl text-sm mt-2">
+          Publish Product & Pin on Map
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#2E1F47] text-white py-6 px-4 mt-12 border-t-4 border-[#FF9F1C]">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs">
+      <div>
+        <p class="font-display text-lg font-bold text-[#FF9F1C]">ISLANDBOX MARKETPLACE</p>
+        <p class="text-white/80">SIA 101 - C | Group 1: Fortuna, Abucejo, Corbeta, Baluma</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

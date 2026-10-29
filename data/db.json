@@ -1,0 +1,200 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "fullName": "Demo Island Shopper",
+      "email": "demo@islandbox.ph",
+      "password": "password123",
+      "role": "customer",
+      "contactNumber": "09171234567",
+      "deliveryAddress": "Tagbilaran City, Bohol, Philippines",
+      "lat": 9.6477,
+      "lng": 123.8554
+    },
+    {
+      "id": "u2",
+      "fullName": "Tagbilaran Sweet Treats",
+      "email": "seller@islandbox.ph",
+      "password": "sellerpassword",
+      "role": "seller",
+      "contactNumber": "09187654321",
+      "deliveryAddress": "Tagbilaran City Public Market, Bohol",
+      "lat": 9.65,
+      "lng": 123.853
+    }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "name": "Authentic Bohol Peanut Kisses (Box of 24)",
+      "description": "Crispy, hill-shaped cookies made from high-quality local peanuts and egg whites.",
+      "price": 145,
+      "category": "Local snacks",
+      "seller": "Tagbilaran Sweet Treats",
+      "location": "Tagbilaran City, Bohol",
+      "lat": 9.65,
+      "lng": 123.853,
+      "quantity": 41,
+      "sold": 316,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "p2",
+      "name": "Handwoven Raffia Tote Bag",
+      "description": "Eco-friendly colorful island tote bag handwoven by local weavers using natural raffia fibers.",
+      "price": 450,
+      "category": "Handicrafts",
+      "seller": "Loom & Craft Cooperative",
+      "location": "Inabanga, Bohol",
+      "lat": 10.0325,
+      "lng": 124.0672,
+      "quantity": 15,
+      "sold": 92,
+      "rating": 5,
+      "image": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "p3",
+      "name": "I Love Island Souvenir Graphic Tee",
+      "description": "Breathable 100% cotton tropical souvenir shirt with vibrant screen-printed island artwork.",
+      "price": 280,
+      "category": "Souvenirs",
+      "seller": "Island Vibes Souvenir Shop",
+      "location": "Panglao Island, Bohol",
+      "lat": 9.5789,
+      "lng": 123.7453,
+      "quantity": 60,
+      "sold": 204,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "p4",
+      "name": "Calamay sa Bao (Sweet Sticky Rice in Coconut Shell)",
+      "description": "Traditional sweet glutinous rice delicacy cooked with coconut milk, brown sugar, and peanuts.",
+      "price": 95,
+      "category": "Local snacks",
+      "seller": "Jagna Delicacy Makers",
+      "location": "Jagna, Bohol",
+      "lat": 9.6514,
+      "lng": 124.3667,
+      "quantity": 32,
+      "sold": 410,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "p5",
+      "name": "Mother-of-Pearl Shell Bracelet Set",
+      "description": "Hand-polished capiz and mother-of-pearl beaded bracelets made by coastal island artisans.",
+      "price": 185,
+      "category": "Accessories",
+      "seller": "Coral Coast Accessories",
+      "location": "Baclayon, Bohol",
+      "lat": 9.6225,
+      "lng": 123.9136,
+      "quantity": 27,
+      "sold": 156,
+      "rating": 4.7,
+      "image": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "p6",
+      "name": "Hand-Carved Wooden Tarsier Keychain (Set of 3)",
+      "description": "Detailed miniature wooden keychains carved from sustainable local wood and painted by hand.",
+      "price": 120,
+      "category": "Handmade products",
+      "seller": "Loboc Woodcarvers Guild",
+      "location": "Loboc, Bohol",
+      "lat": 9.6369,
+      "lng": 124.0314,
+      "quantity": 80,
+      "sold": 520,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-641345",
+      "userId": "u1",
+      "customerName": "Demo Island Shopper",
+      "contactNumber": "09171234567",
+      "deliveryAddress": "Tagbilaran City, Bohol, Philippines",
+      "items": [
+        {
+          "id": "p1",
+          "name": "Authentic Bohol Peanut Kisses (Box of 24)",
+          "price": 145,
+          "seller": "Tagbilaran Sweet Treats",
+          "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80",
+          "qty": 2
+        },
+        {
+          "id": "p2",
+          "name": "Handwoven Raffia Tote Bag",
+          "price": 450,
+          "seller": "Loom & Craft Cooperative",
+          "image": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
+          "qty": 2
+        }
+      ],
+      "subtotal": 1190,
+      "shippingFee": 45,
+      "totalAmount": 1235,
+      "paymentMethod": "GCash (PayMongo Test)",
+      "paymentStatus": "Paid",
+      "orderStatus": "Paid",
+      "createdAt": "2026-10-21T17:19:13.160Z"
+    },
+    {
+      "id": "ORD-824043",
+      "userId": "u1",
+      "customerName": "Demo Island Shopper",
+      "contactNumber": "09171234567",
+      "deliveryAddress": "Tagbilaran City, Bohol, Philippines",
+      "items": [
+        {
+          "id": "p1",
+          "name": "Authentic Bohol Peanut Kisses (Box of 24)",
+          "price": 145,
+          "seller": "Tagbilaran Sweet Treats",
+          "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80",
+          "qty": 2
+        }
+      ],
+      "subtotal": 290,
+      "shippingFee": 45,
+      "totalAmount": 335,
+      "paymentMethod": "GCash (PayMongo Test)",
+      "paymentStatus": "Paid",
+      "orderStatus": "Paid",
+      "createdAt": "2026-10-21T17:18:38.235Z"
+    },
+    {
+      "id": "ORD-971134",
+      "userId": "u1",
+      "customerName": "Demo Island Shopper",
+      "contactNumber": "09171234567",
+      "deliveryAddress": "Tagbilaran City, Bohol, Philippines",
+      "items": [
+        {
+          "id": "p2",
+          "name": "Handwoven Raffia Tote Bag",
+          "price": 450,
+          "seller": "Loom & Craft Cooperative",
+          "image": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
+          "qty": 1
+        }
+      ],
+      "subtotal": 450,
+      "shippingFee": 45,
+      "totalAmount": 495,
+      "paymentMethod": "GCash (PayMongo Test)",
+      "paymentStatus": "Paid",
+      "orderStatus": "Paid",
+      "createdAt": "2026-10-21T17:08:29.139Z"
+    }
+  ]
+}
