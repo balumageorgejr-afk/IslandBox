@@ -164,6 +164,60 @@ async function seedDatabase() {
           latitude: 9.9519,
           longitude: 123.9622
         }
+      },
+      {
+        user: {
+          full_name: 'Concepcion Villamor',
+          email: 'baclayon.pastries@islandbox.ph',
+          password_hash: passwordHash,
+          contact_number: '+63 915 222 3344',
+          delivery_address: 'Poblacion, Baclayon, Bohol, 6301',
+          role: 'seller'
+        },
+        seller: {
+          business_name: 'Baclayon Heritage Pastries & Confectionery',
+          business_description: 'Boholano convent pastry traditions since the Spanish era: heirloom Broas, melt-in-mouth Masa Podrida, and pure roasted Tablea de Cacao.',
+          business_address: 'Heritage Zone, Poblacion, Baclayon, Bohol, 6301',
+          island_region: 'Bohol',
+          latitude: 9.6225,
+          longitude: 123.9056
+        }
+      },
+      {
+        user: {
+          full_name: 'Arsenio Varquez',
+          email: 'loboc.artisans@islandbox.ph',
+          password_hash: passwordHash,
+          contact_number: '+63 939 888 7766',
+          delivery_address: 'Valladolid, Loboc, Bohol, 6315',
+          role: 'seller'
+        },
+        seller: {
+          business_name: 'Loboc River Artisan Cooperatives',
+          business_description: 'River craft, musical bamboo wind chimes, pure forest honey, and herbal wellness infusions harvested by Loboc community weavers.',
+          business_address: 'Riverbank Road, Barangay Valladolid, Loboc, Bohol, 6315',
+          island_region: 'Bohol',
+          latitude: 9.6389,
+          longitude: 124.0328
+        }
+      },
+      {
+        user: {
+          full_name: 'Nestor Manlupig',
+          email: 'albur.salt@islandbox.ph',
+          password_hash: passwordHash,
+          contact_number: '+63 928 555 9911',
+          delivery_address: 'Santa Fe, Alburquerque, Bohol, 6302',
+          role: 'seller'
+        },
+        seller: {
+          business_name: 'Alburquerque Salt & Pottery Workshop',
+          business_description: 'Masters of the ancient Asin Tibook coconut salt-making craft and red terracotta earthen pottery of Bohol.',
+          business_address: 'Coastal Highway, Santa Fe, Alburquerque, Bohol, 6302',
+          island_region: 'Bohol',
+          latitude: 9.6133,
+          longitude: 123.9567
+        }
       }
     ];
 
@@ -211,167 +265,7 @@ async function seedDatabase() {
     console.log('Sellers seeded:', Object.keys(sellerMap).length);
 
     // 5. Seed Authentic Bohol Products
-    const productsData = [
-      // Local Snacks
-      {
-        seller_name: 'Jagna Calamay & Delicacies Heritage',
-        category_slug: 'local-snacks',
-        name: 'Original Jagna Calamay in Coconut Shell',
-        slug: 'original-jagna-calamay-coconut-shell',
-        description: 'Authentic Boholano sticky sweet treat made from glutinous rice, coconut milk, and muscovado sugar, packaged in a natural coconut shell bound with iconic red tape.',
-        price: 180.00,
-        available_quantity: 45,
-        image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Jagna Calamay & Delicacies Heritage',
-        category_slug: 'local-snacks',
-        name: 'Boholano Peanut Kisses 3-Pack',
-        slug: 'boholano-peanut-kisses-3-pack',
-        description: 'Crispy, sweet peanut meringue crisps shaped like the majestic Chocolate Hills. A signature pasalubong from Bohol loved by locals and travelers.',
-        price: 150.00,
-        available_quantity: 80,
-        image_url: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Jagna Calamay & Delicacies Heritage',
-        category_slug: 'local-snacks',
-        name: 'Asin Tibook Artisanal Heritage Sea Salt',
-        slug: 'asin-tibook-artisanal-sea-salt',
-        description: 'Rare UNESCO-recognized pre-colonial artisanal sea salt from Alburquerque, Bohol. Filtered through coconut husk ash and slow-fired in clay pots for months.',
-        price: 580.00,
-        available_quantity: 12,
-        image_url: 'https://images.unsplash.com/photo-1518110903415-8bf6095c5db6?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Jagna Calamay & Delicacies Heritage',
-        category_slug: 'local-snacks',
-        name: 'Bohol Ube Kinampay Pure Jam Jar (300g)',
-        slug: 'bohol-ube-kinampay-jam-jar',
-        description: 'Made exclusively from authentic Bohol Kinampay purple yam, recognized for its vibrant violet hue and sweet aromatic scent.',
-        price: 195.00,
-        available_quantity: 25,
-        image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80'
-      },
-
-      // Handicrafts
-      {
-        seller_name: 'Antequera Loomweavers Cooperative',
-        category_slug: 'handicrafts',
-        name: 'Handwoven Antequera Raffia Storage Basket',
-        slug: 'handwoven-antequera-raffia-storage-basket',
-        description: 'Durable, naturally dried and handwoven raffia fiber storage basket. Handcrafted with meticulous patience by Antequera master weavers.',
-        price: 450.00,
-        available_quantity: 18,
-        image_url: 'https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Antequera Loomweavers Cooperative',
-        category_slug: 'handicrafts',
-        name: 'Artisanal Bamboo Windchime with Island Motif',
-        slug: 'artisanal-bamboo-windchime',
-        description: 'Tuned natural bamboo stalks creating calming ocean-breeze resonance. Decorated with burned island tribal motifs.',
-        price: 280.00,
-        available_quantity: 30,
-        image_url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Antequera Loomweavers Cooperative',
-        category_slug: 'handicrafts',
-        name: 'Miniature Bamboo Bahay Kubo Tabletop Piece',
-        slug: 'miniature-bamboo-bahay-kubo',
-        description: 'Exquisite miniature scale representation of a traditional Philippine bamboo nipa hut with woven thatch roofing.',
-        price: 380.00,
-        available_quantity: 14,
-        image_url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80'
-      },
-
-      // Souvenirs
-      {
-        seller_name: 'Chocolate Hills Keepsakes & Tarsier Woodcraft',
-        category_slug: 'souvenirs',
-        name: 'Hand-Carved Wooden Tarsier Desktop Figurine',
-        slug: 'hand-carved-wooden-tarsier-figurine',
-        description: 'Charming Bohol Philippine Tarsier figurine carved from reclaimed acacia wood with wide, curious glass bead eyes.',
-        price: 220.00,
-        available_quantity: 50,
-        image_url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Chocolate Hills Keepsakes & Tarsier Woodcraft',
-        category_slug: 'souvenirs',
-        name: 'Bohol Chocolate Hills 3D Resin Magnet',
-        slug: 'bohol-chocolate-hills-3d-resin-magnet',
-        description: 'Vivid hand-painted refrigerator magnet depicting the iconic cone-shaped Chocolate Hills under a tropical sun.',
-        price: 95.00,
-        available_quantity: 120,
-        image_url: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80'
-      },
-
-      // Accessories
-      {
-        seller_name: 'Alona Shell & Artisan Crafts',
-        category_slug: 'accessories',
-        name: 'Mother of Pearl Shell Pendant Necklace',
-        slug: 'mother-of-pearl-shell-pendant-necklace',
-        description: 'Polished iridescent golden mother-of-pearl disc on an adjustable waxed cotton cord, gathered ethically from Bohol coastal shores.',
-        price: 350.00,
-        available_quantity: 35,
-        image_url: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Alona Shell & Artisan Crafts',
-        category_slug: 'accessories',
-        name: 'Hand-braided Natural Abaca Cord Bracelet',
-        slug: 'hand-braided-natural-abaca-bracelet',
-        description: 'Earthy, water-resistant twisted abaca fiber band with natural puka shell clasp. Designed for island travelers and beachgoers.',
-        price: 120.00,
-        available_quantity: 75,
-        image_url: 'https://images.unsplash.com/photo-1611591475870-07e155bc10d2?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Alona Shell & Artisan Crafts',
-        category_slug: 'accessories',
-        name: 'Panglao Capiz Shell Coaster Set of 4',
-        slug: 'panglao-capiz-shell-coaster-set',
-        description: 'Translucent windowpane oyster shell coasters edged in brass foil, highlighting natural sea luster on any dining table.',
-        price: 320.00,
-        available_quantity: 20,
-        image_url: 'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=800&q=80'
-      },
-
-      // Handmade Products
-      {
-        seller_name: 'Tubigon Raffia & Fiber Arts',
-        category_slug: 'handmade-products',
-        name: 'Virgin Coconut Oil Cold-Pressed Artisan Soap (120g)',
-        slug: 'virgin-coconut-oil-cold-pressed-soap',
-        description: 'Deeply moisturizing natural bar soap infused with freshly cold-pressed Bohol virgin coconut oil and botanical papaya extract.',
-        price: 85.00,
-        available_quantity: 65,
-        image_url: 'https://images.unsplash.com/photo-1607006314605-6187b5a1221f?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Tubigon Raffia & Fiber Arts',
-        category_slug: 'handmade-products',
-        name: 'Island Lemongrass & Peppermint Soothing Balm (50g)',
-        slug: 'island-lemongrass-peppermint-balm',
-        description: 'Natural beeswax formula with pure lemongrass essential oil. Relieves muscle tension and repels mosquitoes naturally.',
-        price: 140.00,
-        available_quantity: 40,
-        image_url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        seller_name: 'Tubigon Raffia & Fiber Arts',
-        category_slug: 'handmade-products',
-        name: 'Tubigon Loomwoven Burí & Raffia Table Runner (2m)',
-        slug: 'tubigon-loomwoven-raffia-table-runner',
-        description: 'Hand-dyed botanical fibers woven into a modern geometric centerpiece runner, celebrating Visayan weaving traditions.',
-        price: 520.00,
-        available_quantity: 15,
-        image_url: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80'
-      }
-    ];
+    const productsData = require('./productsData');
 
     const productMap = {};
     for (const p of productsData) {

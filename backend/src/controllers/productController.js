@@ -19,7 +19,7 @@ async function getProducts(req, res) {
     min_price,
     max_price,
     sort = 'newest',
-    limit = 50,
+    limit = 200,
     offset = 0,
   } = req.query;
 
