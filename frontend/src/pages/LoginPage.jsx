@@ -49,11 +49,8 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Demo Fast Login Buttons (Capstone Showcase) */}
+        {/* Demo Fast Login Buttons */}
         <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-          <span className="text-[10px] font-bold text-slate-400 block uppercase tracking-wider text-center">
-            🚀 Capstone Demo Quick Fill
-          </span>
           <div className="grid grid-cols-3 gap-1.5">
             <button
               type="button"

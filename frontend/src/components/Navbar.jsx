@@ -31,7 +31,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 w-full glass-nav border-b border-slate-200/80 shadow-xs">
       {/* Top Academic Banner */}
       <div className="bg-gradient-to-r from-emerald-800 via-teal-800 to-cyan-900 text-white text-xs py-1 px-4 text-center font-medium tracking-wide">
-        🌴 IslandBox &bull; Systems Integration & Architecture (SIA Group 1 Capstone) &bull; Bohol Local Artisan Marketplace
+        🌴 IslandBox &bull; Systems Integration & Architecture &bull; Bohol Local Artisan Marketplace
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

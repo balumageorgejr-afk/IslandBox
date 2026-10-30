@@ -81,7 +81,7 @@ For classroom grading and demonstration defense:
 | **Seller** | Diosdado Ranario | `jagna.calamay@islandbox.ph` | `Password123!` | *Jagna Calamay Heritage* &bull; Manage shop, orders |
 | **Admin** | IslandBox Admin | `admin@islandbox.ph` | `Password123!` | System-wide oversight, platform metrics, orders |
 
-*(Note: The login page includes 1-click **"Capstone Demo Quick Fill"** buttons for effortless testing).*
+*(Note: The login page includes 1-click demo login buttons for effortless testing).*
 
 ---
 
@@ -91,7 +91,7 @@ To demonstrate the full project lifecycle during presentation:
 
 1. **Step 1: Registration / Login**
    - Navigate to `http://localhost:5173/login`.
-   - Use the **Quick Fill: Customer** button (or register a new user).
+   - Use the **Customer** demo button (or register a new user).
 2. **Step 2: Browse & Filter Local Products**
    - Click **Browse Catalog**.
    - Filter by categories (*Local Snacks, Handicrafts, Souvenirs, Accessories, Handmade Products*) or search for "calamay".
