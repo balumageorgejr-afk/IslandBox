@@ -1,6 +1,6 @@
 {
   "name": "islandbox-backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "IslandBox Local Products and Souvenir Marketplace - Backend API",
   "main": "src/server.js",
   "scripts": {
